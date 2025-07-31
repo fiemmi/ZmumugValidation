@@ -15,3 +15,8 @@ int binwOOM (TH1F*h, float& binwidth) {//compute order of magnitude of bin width
   else return -1*n;
   
 }
+
+float roundToDecimals(float value, int decimals) {
+    float factor = std::pow(10.0f, decimals);
+    return std::round(value * factor) / factor;
+}

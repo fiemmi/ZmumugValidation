@@ -1,6 +1,6 @@
 #include "DrawVariable.h"
 
-void DrawVariable(TString VAR,TString YEAR,TString CAT,bool LOG,int iSyst,int REBIN,float XMIN,float XMAX,float RATIOYMIN,float RATIOYMAX,TString XTITLE,TString SEL1,TString SEL2,TString SEL3, bool isINT,int XNDIV,bool PRINT)
+void DrawVariable(TString VAR,TString YEAR,TString CAT,bool LOG,int iSyst,int REBIN,float XMIN,float XMAX,float RATIOYMIN,float RATIOYMAX,TString XTITLE,TString SEL1,TString SEL2,TString SEL3,TString SEL4, bool isINT,int XNDIV,bool PRINT)
 {
   gROOT->ForceStyle();
   gROOT->SetBatch(kTRUE); //kTRUE ---> histos are not showed while drawn. You can avoid crashes with this
@@ -262,12 +262,26 @@ void DrawVariable(TString VAR,TString YEAR,TString CAT,bool LOG,int iSyst,int RE
   TString ETcut;
   if (CAT.Index("ETg") != -1) ETcut = "E^{e}_{T} > 80 GeV";
   else ETcut = "E^{e}_{T} < 80 GeV";
-  sel.DrawLatexNDC(0.2, 0.76, SEL2);
+  sel.DrawLatexNDC(0.2, 0.75, SEL2);
   TString BDTcut;
   if (CAT.Index("BDTg") != -1) BDTcut = "diphotonBDT > 0.3";
   else BDTcut = "XXXXXX";
-  sel.DrawLatexNDC(0.2, 0.72, SEL3);
+  sel.DrawLatexNDC(0.2, 0.70, SEL3);
 
+  //compute Chi2/ndof
+  TH1F * hd = (TH1F*)h[0]->Clone();
+  TH1F * hmc = (TH1F*)h[(int)HISTOS.size()]->Clone();
+  double chi2 = 0.;
+  int ndf = 0;
+  int igood = 0;
+  /*
+  for (int ibin = 0; ibin < hd->GetSize()-2; ibin++) {
+    hmc->SetBinError(ibin, sqrt(pow(hmc->GetBinError(ibin),2) + pow(hd->GetBinError(ibin),2))); //assign quad-sum of errors in data and MC to MC
+    hd->SetBinError(ibin+1,0); //assign 0 error to data
+  }
+  */
+  double p_val = hd->Chi2TestX(hmc,chi2,ndf,igood,"WW");
+  sel.DrawLatexNDC(0.2, 0.65, SEL4 + Form("%.2f/%i", chi2, hd->GetSize()-3));
   
   if (PRINT) {//save plots
     can->SaveAs(VAR+"_"+YEAR+"_"+CAT+".pdf");
