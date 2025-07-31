@@ -8,6 +8,7 @@ struct SelectionContext {
 
 // Define all selection filters here
 std::map<std::string, std::string> baseSelections = {
+  {"ptg20", "1>0"}, //just what you have in input dataframe
   {"ptg25", "pho_pt_ScaleSmeared*pho_FnufCorr > 25."},
   {"pt20to35", "pho_pt_ScaleSmeared*pho_FnufCorr >= 20. && pho_pt_ScaleSmeared*pho_FnufCorr < 35."},
   {"pt35to50", "pho_pt_ScaleSmeared*pho_FnufCorr >= 35. && pho_pt_ScaleSmeared*pho_FnufCorr < 50."},
