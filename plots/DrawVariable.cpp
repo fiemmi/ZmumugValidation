@@ -1,22 +1,34 @@
 #include "DrawVariable.h"
 
-void DrawVariable(TString VAR,TString YEAR,TString CAT,bool LOG,int iSyst,int REBIN,float XMIN,float XMAX,float RATIOYMIN,float RATIOYMAX,TString XTITLE,TString SEL1,TString SEL2,TString SEL3,TString SEL4, bool isINT,int XNDIV,bool PRINT)
+void DrawVariable(TString VAR,TString YEAR,TString CAT,bool LOG,int iSyst,int REBIN,float XMIN,float XMAX,float RATIOYMIN,float RATIOYMAX,TString XTITLE,TString SEL1,TString SEL2,TString SEL3,TString SEL4, bool isINT,int XNDIV,bool PRINT=false,bool isInclusive=false, bool applyFNUF=true)
 {
   gROOT->ForceStyle();
   gROOT->SetBatch(kTRUE); //kTRUE ---> histos are not showed while drawn. You can avoid crashes with this
   
-  std::vector<TString> HISTOS = {
-    VAR+"_"+YEAR+"_"+CAT,
-    VAR+"_FNUFUp_"+YEAR+"_"+CAT,
-    VAR+"_FNUFDown_"+YEAR+"_"+CAT,
-    VAR+"_ScaleUp_"+YEAR+"_"+CAT,
-    VAR+"_ScaleDown_"+YEAR+"_"+CAT,
-    VAR+"_SmearUp_"+YEAR+"_"+CAT,
-    VAR+"_SmearDown_"+YEAR+"_"+CAT,
-    VAR+"_RochUp_"+YEAR+"_"+CAT,
-    VAR+"_RochDown_"+YEAR+"_"+CAT,
-    
-  };
+  std::vector<TString> HISTOS = { };
+  if(applyFNUF){ 
+     HISTOS = {
+       VAR+"_"+YEAR+"_"+CAT,
+       VAR+"_FNUFUp_"+YEAR+"_"+CAT,
+       VAR+"_FNUFDown_"+YEAR+"_"+CAT,
+       VAR+"_ScaleUp_"+YEAR+"_"+CAT,
+       VAR+"_ScaleDown_"+YEAR+"_"+CAT,
+       VAR+"_SmearUp_"+YEAR+"_"+CAT,
+       VAR+"_SmearDown_"+YEAR+"_"+CAT,
+       VAR+"_RochUp_"+YEAR+"_"+CAT,
+       VAR+"_RochDown_"+YEAR+"_"+CAT,    
+     };
+  }else{  
+     HISTOS = {
+       VAR+"_"+YEAR+"_"+CAT,
+       VAR+"_ScaleUp_"+YEAR+"_"+CAT,
+       VAR+"_ScaleDown_"+YEAR+"_"+CAT,
+       VAR+"_SmearUp_"+YEAR+"_"+CAT,
+       VAR+"_SmearDown_"+YEAR+"_"+CAT,
+       VAR+"_RochUp_"+YEAR+"_"+CAT,
+       VAR+"_RochDown_"+YEAR+"_"+CAT,    
+     };
+  }
 
   TFile *inf_data = new TFile("../makeHistos_output_ZmmgTree_Run2_data.root", "READ");
   TFile *inf_MC = new TFile("../makeHistos_output_ZmmgTree_Run2_MC.root", "READ");
@@ -281,13 +293,19 @@ void DrawVariable(TString VAR,TString YEAR,TString CAT,bool LOG,int iSyst,int RE
   }
   */
   double p_val = hd->Chi2TestX(hmc,chi2,ndf,igood,"WW");
-  sel.DrawLatexNDC(0.2, 0.65, SEL4 + Form("%.2f/%i", chi2, hd->GetSize()-3));
+  sel.DrawLatexNDC(0.2, 0.65, SEL4 + Form("#chi^{2}/dof = %.2f/%i", chi2, hd->GetSize()-3));
+  
+  TString isInclusive_str = "";
+  if (isInclusive) isInclusive_str = "inclusive";
+  else isInclusive_str = "exclusive"; 
+  
+  TString applyFNUF_str = "";
+  if (applyFNUF) applyFNUF_str = "withFNUF";
+  else applyFNUF_str = "noFNUF"; 
   
   if (PRINT) {//save plots
-    can->SaveAs(VAR+"_"+YEAR+"_"+CAT+".pdf");
-    can->SaveAs(VAR+"_"+YEAR+"_"+CAT+".png");
-
-  
+    can->SaveAs(VAR+"_"+YEAR+"_"+CAT+"_"+isInclusive_str+"_"+applyFNUF_str+".pdf","pdf");
+    can->SaveAs(VAR+"_"+YEAR+"_"+CAT+"_"+isInclusive_str+"_"+applyFNUF_str+".png","png");
   }
   
 }

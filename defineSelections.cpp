@@ -8,8 +8,9 @@ struct SelectionContext {
 
 // Define all selection filters here
 std::map<std::string, std::string> baseSelections = {
-  {"ptg20", "1>0"}, //just what you have in input dataframe
-  {"ptg25", "pho_pt_ScaleSmeared*pho_FnufCorr > 25."},
+  {"ptg20", "pho_pt_ScaleSmeared*pho_FnufCorr >= 20."}, //just what you have in input dataframe
+  {"ptg25", "pho_pt_ScaleSmeared*pho_FnufCorr >= 25."},
+  {"ptg35", "pho_pt_ScaleSmeared*pho_FnufCorr >= 35."},
   {"pt20to35", "pho_pt_ScaleSmeared*pho_FnufCorr >= 20. && pho_pt_ScaleSmeared*pho_FnufCorr < 35."},
   {"pt35to50", "pho_pt_ScaleSmeared*pho_FnufCorr >= 35. && pho_pt_ScaleSmeared*pho_FnufCorr < 50."},
   {"ptg50", "pho_pt_ScaleSmeared*pho_FnufCorr >= 50."}
@@ -17,14 +18,14 @@ std::map<std::string, std::string> baseSelections = {
 
 std::map<std::string, std::string> etaCuts = {
   {"", ""},
-  {"_etal1p5", "fabs(pho_sceta) < 1.5"},
-  {"_etag1p5", "fabs(pho_sceta) >= 1.5"}
+  {"_eb", "fabs(pho_sceta) < 1.479"},
+  {"_ee", "fabs(pho_sceta) > 1.479"}
 };
 
 std::map<std::string, std::string> r9Cuts = {
   {"", ""},
-  {"_r9l0p96", "pho_full5x5_r9Corr < 0.96"},
-  {"_r9g0p96", "pho_full5x5_r9Corr >= 0.96"}
+  {"_lowR9", "pho_full5x5_r9Corr <= 0.96"},
+  {"_highR9", "pho_full5x5_r9Corr > 0.96"}
 };
 
 std::vector<SelectionContext> allSelections;
