@@ -1,6 +1,6 @@
 #include "DrawVariable.h"
 
-void DrawVariable(TString VAR,TString YEAR,TString CAT,bool LOG,int iSyst,int REBIN,float XMIN,float XMAX,float RATIOYMIN,float RATIOYMAX,TString XTITLE,TString SEL1,TString SEL2,TString SEL3,TString SEL4, bool isINT,int XNDIV,bool PRINT=false,bool isInclusive=false, bool applyFNUF=true)
+void DrawVariable(TString VAR,TString YEAR,TString CAT,bool LOG,int iSyst,int REBIN,float XMIN,float XMAX,float RATIOYMIN,float RATIOYMAX,TString XTITLE,TString SEL1,TString SEL2,TString SEL3, bool isINT,int XNDIV,bool PRINT=false,bool isInclusive=false, bool applyFNUF=true)
 {
   gROOT->ForceStyle();
   gROOT->SetBatch(kTRUE); //kTRUE ---> histos are not showed while drawn. You can avoid crashes with this
@@ -293,7 +293,7 @@ void DrawVariable(TString VAR,TString YEAR,TString CAT,bool LOG,int iSyst,int RE
   }
   */
   double p_val = hd->Chi2TestX(hmc,chi2,ndf,igood,"WW");
-  sel.DrawLatexNDC(0.2, 0.65, SEL4 + Form("#chi^{2}/dof = %.2f/%i", chi2, hd->GetSize()-3));
+  sel.DrawLatexNDC(0.2, 0.65, Form("#chi^{2}/N_{d.o.f.} = %.2f/%i", chi2, hd->GetSize()-3));
   
   TString isInclusive_str = "";
   if (isInclusive) isInclusive_str = "inclusive";

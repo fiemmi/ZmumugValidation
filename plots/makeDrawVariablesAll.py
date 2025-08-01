@@ -61,20 +61,20 @@ for sel in sorted(selection_names):
     if pt_label=="p_{T.#gamma} #geq 20 GeV" or pt_label=="p_{T.#gamma} #geq 25 GeV" or pt_label=="p_{T.#gamma} #geq 35 GeV" or pt_label=="p_{T.#gamma} #geq 50 GeV":
       line = (
           f'DrawVariable("CMS_mumug_mass", "Run2", "Zmumug_{sel}", false, 1, 5, 80, 100, 0.4, 1.3, '
-          f'"m_{{#mu#mu#gamma}} [GeV]", "{pt_label}", "{eta_label}", "{r9_label}", "", false, 505, PRINT,true,true);'
+          f'"m_{{#mu#mu#gamma}} [GeV]", "{pt_label}", "{eta_label}", "{r9_label}", false, 505, PRINT,true,true);'
       )
       line_noFNUF = (
           f'DrawVariable("CMS_mumug_mass_noFNUF", "Run2", "Zmumug_{sel}", false, 1, 5, 80, 100, 0.4, 1.3, '
-          f'"m_{{#mu#mu#gamma}} [GeV]", "{pt_label}", "{eta_label}", "{r9_label}", "", false, 505, PRINT,true,false);'
+          f'"m_{{#mu#mu#gamma}} [GeV]", "{pt_label}", "{eta_label}", "{r9_label}", false, 505, PRINT,true,false);'
       )
     else:  
       line = (
           f'DrawVariable("CMS_mumug_mass", "Run2", "Zmumug_{sel}", false, 1, 5, 80, 100, 0.4, 1.3, '
-          f'"m_{{#mu#mu#gamma}} [GeV]", "{pt_label}", "{eta_label}", "{r9_label}", "", false, 505, PRINT,false,true);'
+          f'"m_{{#mu#mu#gamma}} [GeV]", "{pt_label}", "{eta_label}", "{r9_label}", false, 505, PRINT,false,true);'
       )
       line_noFNUF = (
           f'DrawVariable("CMS_mumug_mass_noFNUF", "Run2", "Zmumug_{sel}", false, 1, 5, 80, 100, 0.4, 1.3, '
-          f'"m_{{#mu#mu#gamma}} [GeV]", "{pt_label}", "{eta_label}", "{r9_label}", "", false, 505, PRINT,false,false);'
+          f'"m_{{#mu#mu#gamma}} [GeV]", "{pt_label}", "{eta_label}", "{r9_label}", false, 505, PRINT,false,false);'
       ) 
     calls.append(line)
     calls.append(line_noFNUF)

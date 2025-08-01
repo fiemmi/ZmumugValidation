@@ -14,13 +14,13 @@ Run
 ```
 root -l -q 'makeHistos.cpp("path/to/inputfile.root", "treeName", isdata, "Run2")'
 ```
-Setting `isdata` to true/false will deal with event weights accordingly.
-You can implement new selections by changing the fields in `defineSelections.cpp`. E.g:
+Setting `isdata` to true/false will deal with event weights accordingly. E.g.:
 
 ```
 root -l -q 'makeHistos.cpp("/eos/user/b/bmarzocc/Zmmg_ForFNUF_phoReg_IJazz_SnS/data_ZpT_S5_Run2_withFNUF_withPNCorr_fix_v3.root", "ZmmgTree", 1, "Run2")'
 root -l -q 'makeHistos.cpp("/eos/user/b/bmarzocc/Zmmg_ForFNUF_phoReg_IJazz_SnS/DY_ZpT_S5_Run2_withFNUF_withPNCorr_fix_v3.root", "ZmmgTree", 0, "Run2")'
 ```
+You can implement new selections by changing the fields in `defineSelections.cpp`.
 
 ## Step 3. Generate DrawVariablesAll.cpp script
 Run
