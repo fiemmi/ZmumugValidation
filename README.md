@@ -21,7 +21,7 @@ This will read the content of the files created at step 1 and automatically crea
 Run
 ```
 root -l setTDRStyle.C
-.x DrawVariablesAll(PRINT)
+.x DrawVariablesAll.cpp(PRINT)
 ```
 Setting `PRINT==true` will make the script save the plots locally.
 
