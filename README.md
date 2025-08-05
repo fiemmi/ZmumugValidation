@@ -4,9 +4,9 @@ Simple framework to skim trees and produce Zμμγ validation plots in the conte
 ## Step 1. Add FNUF branches to ZmmgTree
 Run
 ```
-cd addFNUFBranches
-python addFNUF_Zmmg.py --era Run2 --data
-python addFNUF_Zmmg.py --era Run2 --mc
+cd addFNUFBranches #first do a "cmsenv"
+python addFNUF_Zmmg.py --era Run2 --data --phoScale 1. #you can change the photon-energy scale by any value 
+python addFNUF_Zmmg.py --era Run2 --mc --phoScale 1. #you can change the photon-energy scale by any value 
 ```
 
 ## Step 2. Make histograms
@@ -34,7 +34,7 @@ This will read the content of the files created at step 1 and automatically crea
 Run
 ```
 root -l setTDRStyle.C
-.x DrawVariablesAll.cpp(PRINT)
+.x DrawVariablesAll.cpp(true)
 ```
 Setting `PRINT==true` will make the script save the plots locally.
 

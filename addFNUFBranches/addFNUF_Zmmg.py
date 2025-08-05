@@ -189,7 +189,7 @@ def getFNUF(lumi,energy,iRing,F_correction):
   
  return [corr,corrErrUp,corrErrDown]  
 
-def addBranches(tree,mc):
+def addBranches(tree,mc,scale):
 
  copyTree = tree.CopyTree('')
  copyTree.SetBranchStatus('*',1)
@@ -317,12 +317,12 @@ def addBranches(tree,mc):
  average_RR0_2017 = []
  average_RR0_2018 = []
  file_RR0 = 0
- if era=="2016_preVFP": file_RR0 = TFile.Open("average_RoverR0_2016_preVFP_withPNCorr.root")
- elif era=="2016_postVFP": file_RR0 = TFile.Open("average_RoverR0_2016_postVFP_withPNCorr.root")
- elif era=="2017": file_RR0 = TFile.Open("average_RoverR0_2017_withPNCorr.root")
- elif era=="2018": file_RR0 = TFile.Open("average_RoverR0_2018_withPNCorr.root")
+ if era=="2016_preVFP": file_RR0 = TFile.Open("data/average_RoverR0_2016_preVFP_withPNCorr.root")
+ elif era=="2016_postVFP": file_RR0 = TFile.Open("data/average_RoverR0_2016_postVFP_withPNCorr.root")
+ elif era=="2017": file_RR0 = TFile.Open("data/average_RoverR0_2017_withPNCorr.root")
+ elif era=="2018": file_RR0 = TFile.Open("data/average_RoverR0_2018_withPNCorr.root")
  
- file_RR0 = TFile.Open("average_RoverR0_2016_preVFP_withPNCorr.root")
+ file_RR0 = TFile.Open("data/average_RoverR0_2016_preVFP_withPNCorr.root")
  for iRing in range(0,30):
    average_RR0_2016_preVFP.append(file_RR0.Get("gr_RoverR0_vs_Run_ring_"+str(iRing)))  
    average_RR0_2016_preVFP[iRing].Sort()
@@ -330,7 +330,7 @@ def addBranches(tree,mc):
  runMin_2016_preVFP = TMath.MinElement(average_RR0_2016_preVFP[iRing].GetN(),average_RR0_2016_preVFP[iRing].GetX()) 
  runMax_2016_preVFP = TMath.MaxElement(average_RR0_2016_preVFP[iRing].GetN(),average_RR0_2016_preVFP[iRing].GetX())
  
- file_RR0 = TFile.Open("average_RoverR0_2016_postVFP_withPNCorr.root")
+ file_RR0 = TFile.Open("data/average_RoverR0_2016_postVFP_withPNCorr.root")
  for iRing in range(0,30):
    average_RR0_2016_postVFP.append(file_RR0.Get("gr_RoverR0_vs_Run_ring_"+str(iRing)))  
    average_RR0_2016_postVFP[iRing].Sort()
@@ -338,7 +338,7 @@ def addBranches(tree,mc):
  runMin_2016_postVFP = TMath.MinElement(average_RR0_2016_postVFP[iRing].GetN(),average_RR0_2016_postVFP[iRing].GetX()) 
  runMax_2016_postVFP = TMath.MaxElement(average_RR0_2016_postVFP[iRing].GetN(),average_RR0_2016_postVFP[iRing].GetX())
  
- file_RR0 = TFile.Open("average_RoverR0_2017_withPNCorr.root")
+ file_RR0 = TFile.Open("data/average_RoverR0_2017_withPNCorr.root")
  for iRing in range(0,30):
    average_RR0_2017.append(file_RR0.Get("gr_RoverR0_vs_Run_ring_"+str(iRing)))  
    average_RR0_2017[iRing].Sort()
@@ -346,7 +346,7 @@ def addBranches(tree,mc):
  runMin_2017 = TMath.MinElement(average_RR0_2017[iRing].GetN(),average_RR0_2017[iRing].GetX()) 
  runMax_2017 = TMath.MaxElement(average_RR0_2017[iRing].GetN(),average_RR0_2017[iRing].GetX())
  
- file_RR0 = TFile.Open("average_RoverR0_2018_withPNCorr.root")
+ file_RR0 = TFile.Open("data/average_RoverR0_2018_withPNCorr.root")
  for iRing in range(0,30):
    average_RR0_2018.append(file_RR0.Get("gr_RoverR0_vs_Run_ring_"+str(iRing)))  
    average_RR0_2018[iRing].Sort()
@@ -355,7 +355,7 @@ def addBranches(tree,mc):
  runMax_2018 = TMath.MaxElement(average_RR0_2018[iRing].GetN(),average_RR0_2018[iRing].GetX())
 
  gr_L_vs_R = []
- file_RtoL = TFile.Open("231024_HggMass_distributions.root")
+ file_RtoL = TFile.Open("data/231024_HggMass_distributions.root")
  for iRing in range(0,30):
    gr_L_vs_R.append(file_RtoL.Get("Lsim_vs_RR0_fineSteps/gr_Lsim_vs_RR0_ring_"+str(iRing)))
    gr_L_vs_R[iRing].Sort()
@@ -364,7 +364,7 @@ def addBranches(tree,mc):
  rr0Max = TMath.MaxElement(gr_L_vs_R[iRing].GetN(),gr_L_vs_R[iRing].GetX());
  
  F_correction = []
- file_fnufCorr = TFile.Open("F_vs_E_vs_lumi_energyRef_50p0_LCE0_with_full_Transparency_iR9_13.root")
+ file_fnufCorr = TFile.Open("data/F_vs_E_vs_lumi_energyRef_50p0_LCE0_with_full_Transparency_iR9_13.root")
  for iRing in range(0,30):
    gr2 = file_fnufCorr.Get("F_vs_E_vs_Lumi_ring_"+str(iRing)+"_iR9_13")
    F_correction.append(gr2) 
@@ -373,7 +373,7 @@ def addBranches(tree,mc):
  count=0  
  for i,event in enumerate(copyTree):
    if i>copyTree.GetEntries():
-   #if i>2:
+   #if i>5:
      break 
    if i%100000==0:
      print("Reading Entry - ",i)   
@@ -543,34 +543,35 @@ def addBranches(tree,mc):
    dimu_pt_1sigmaUpMuRoc[0] = dimu_p4_1sigmaUpMuRoc.Pt()
    dimu_pt_1sigmaDnMuRoc[0] = dimu_p4_1sigmaDnMuRoc.Pt()
    
-   pho_energy_ScaleSmeared_FnufCorrected[0] = pho_energy_ScaleSmeared*pho_FnufCorr[0]
-   pho_energy_ScaleSmeared_FnufCorrected_1sigmaUpFnuf[0] = pho_energy_ScaleSmeared*(pho_FnufCorr[0]+pho_FnufCorrErr[0])
-   pho_energy_ScaleSmeared_FnufCorrected_1sigmaDnFnuf[0] = pho_energy_ScaleSmeared*(pho_FnufCorr[0]-pho_FnufCorrErr[0])
-   pho_pt_ScaleSmeared_FnufCorrected[0] = pho_pt_ScaleSmeared*pho_FnufCorr[0]
-   pho_pt_ScaleSmeared_FnufCorrected_1sigmaUpFnuf[0] = pho_pt_ScaleSmeared*(pho_FnufCorr[0]+pho_FnufCorrErr[0])
-   pho_pt_ScaleSmeared_FnufCorrected_1sigmaDnFnuf[0] = pho_pt_ScaleSmeared*(pho_FnufCorr[0]-pho_FnufCorrErr[0])
+   pho_energy_ScaleSmeared_FnufCorrected[0] = pho_energy_ScaleSmeared*pho_FnufCorr[0]*scale
+   #print("pho_energy_ScaleSmeared_FnufCorrected = ",pho_energy_ScaleSmeared_FnufCorrected[0])
+   pho_energy_ScaleSmeared_FnufCorrected_1sigmaUpFnuf[0] = pho_energy_ScaleSmeared*(pho_FnufCorr[0]+pho_FnufCorrErr[0])*scale
+   pho_energy_ScaleSmeared_FnufCorrected_1sigmaDnFnuf[0] = pho_energy_ScaleSmeared*(pho_FnufCorr[0]-pho_FnufCorrErr[0])*scale
+   pho_pt_ScaleSmeared_FnufCorrected[0] = pho_pt_ScaleSmeared*pho_FnufCorr[0]*scale
+   pho_pt_ScaleSmeared_FnufCorrected_1sigmaUpFnuf[0] = pho_pt_ScaleSmeared*(pho_FnufCorr[0]+pho_FnufCorrErr[0])*scale
+   pho_pt_ScaleSmeared_FnufCorrected_1sigmaDnFnuf[0] = pho_pt_ScaleSmeared*(pho_FnufCorr[0]-pho_FnufCorrErr[0])*scale
    
    pho_energy_ScaleSmeared_FnufCorrected_1sigmaUpScale = pho_energy_ScaleSmeared_FnufCorrected[0] 
    pho_energy_ScaleSmeared_FnufCorrected_1sigmaDnScale = pho_energy_ScaleSmeared_FnufCorrected[0] 
    if not mc: 
-     pho_energy_ScaleSmeared_FnufCorrected_1sigmaUpScale = pho_energy*(pho_EnergyScaleFactorEG+pho_EnergyScaleFactorEGErr)*pho_FnufCorr[0]
-     pho_energy_ScaleSmeared_FnufCorrected_1sigmaDnScale = pho_energy*(pho_EnergyScaleFactorEG-pho_EnergyScaleFactorEGErr)*pho_FnufCorr[0]
+     pho_energy_ScaleSmeared_FnufCorrected_1sigmaUpScale = pho_energy*(pho_EnergyScaleFactorEG+pho_EnergyScaleFactorEGErr)*pho_FnufCorr[0]*scale
+     pho_energy_ScaleSmeared_FnufCorrected_1sigmaDnScale = pho_energy*(pho_EnergyScaleFactorEG-pho_EnergyScaleFactorEGErr)*pho_FnufCorr[0]*scale
    pho_pt_ScaleSmeared_FnufCorrected_1sigmaUpScale = pho_pt_ScaleSmeared_FnufCorrected[0] 
    pho_pt_ScaleSmeared_FnufCorrected_1sigmaDnScale = pho_pt_ScaleSmeared_FnufCorrected[0] 
    if not mc: 
-     pho_pt_ScaleSmeared_FnufCorrected_1sigmaUpScale = pho_pt*(pho_EnergyScaleFactorEG+pho_EnergyScaleFactorEGErr)*pho_FnufCorr[0]
-     pho_pt_ScaleSmeared_FnufCorrected_1sigmaDnScale = pho_pt*(pho_EnergyScaleFactorEG-pho_EnergyScaleFactorEGErr)*pho_FnufCorr[0]
+     pho_pt_ScaleSmeared_FnufCorrected_1sigmaUpScale = pho_pt*(pho_EnergyScaleFactorEG+pho_EnergyScaleFactorEGErr)*pho_FnufCorr[0]*scale
+     pho_pt_ScaleSmeared_FnufCorrected_1sigmaDnScale = pho_pt*(pho_EnergyScaleFactorEG-pho_EnergyScaleFactorEGErr)*pho_FnufCorr[0]*scale
      
    pho_energy_ScaleSmeared_FnufCorrected_1sigmaUpSmear = pho_energy_ScaleSmeared_FnufCorrected[0] 
    pho_energy_ScaleSmeared_FnufCorrected_1sigmaDnSmear = pho_energy_ScaleSmeared_FnufCorrected[0] 
    if mc: 
-     pho_energy_ScaleSmeared_FnufCorrected_1sigmaUpSmear = pho_energy*pho_energySmeared_1sig/pho_energy*pho_FnufCorr[0]
-     pho_energy_ScaleSmeared_FnufCorrected_1sigmaDnSmear = pho_energy*pho_energySmeared_m1sig/pho_energy*pho_FnufCorr[0]
+     pho_energy_ScaleSmeared_FnufCorrected_1sigmaUpSmear = pho_energy*pho_energySmeared_1sig/pho_energy*pho_FnufCorr[0]*scale
+     pho_energy_ScaleSmeared_FnufCorrected_1sigmaDnSmear = pho_energy*pho_energySmeared_m1sig/pho_energy*pho_FnufCorr[0]*scale
    pho_pt_ScaleSmeared_FnufCorrected_1sigmaUpSmear = pho_pt_ScaleSmeared_FnufCorrected[0] 
    pho_pt_ScaleSmeared_FnufCorrected_1sigmaDnSmear = pho_pt_ScaleSmeared_FnufCorrected[0] 
    if mc: 
-     pho_pt_ScaleSmeared_FnufCorrected_1sigmaUpSmear = pho_pt*pho_energySmeared_1sig/pho_energy*pho_FnufCorr[0]
-     pho_pt_ScaleSmeared_FnufCorrected_1sigmaDnSmear = pho_pt*pho_energySmeared_m1sig/pho_energy*pho_FnufCorr[0]
+     pho_pt_ScaleSmeared_FnufCorrected_1sigmaUpSmear = pho_pt*pho_energySmeared_1sig/pho_energy*pho_FnufCorr[0]*scale
+     pho_pt_ScaleSmeared_FnufCorrected_1sigmaDnSmear = pho_pt*pho_energySmeared_m1sig/pho_energy*pho_FnufCorr[0]*scale
    
    pho_p4 = TLorentzVector()
    pho_p4.SetPtEtaPhiE(pho_pt_ScaleSmeared, pho_eta, pho_phi, pho_energy_ScaleSmeared)
@@ -599,7 +600,7 @@ def addBranches(tree,mc):
    #pho_p4_withFnuf.SetPtEtaPhiM(pho_pt_ScaleSmeared*pho_FnufCorr[0], pho_eta, pho_phi, 0.)
    if abs(mass_ScaleSmeared-(dimu_p4_default + pho_p4).M())>1.e-9: continue
    mass_ScaleSmeared_FnufCorrected[0] = (dimu_p4_default + pho_p4_withFnuf).M()
-   mass_ScaleSmeared_FnufCorrected_approx[0] = math.sqrt(pho_FnufCorr[0])*mass_ScaleSmeared
+   mass_ScaleSmeared_FnufCorrected_approx[0] = math.sqrt(pho_FnufCorr[0]*scale)*mass_ScaleSmeared
    
    pho_energy_ScaleSmeared_FnufCorrected_err = 0.;
    pho_pt_ScaleSmeared_FnufCorrected_err = 0.;
@@ -613,7 +614,7 @@ def addBranches(tree,mc):
    muNear_pt_RocCorected_err = muNear_pt*muNear_RocCorSFerr
    muFar_pt_RocCorected_err = muFar_pt*muFar_RocCorSFerr
     
-   pho_p4_raw_vec = (0.,pho_pt,pho_p4.Eta(),pho_p4.Phi()) 
+   pho_p4_raw_vec = (0.,pho_pt*scale,pho_p4.Eta(),pho_p4.Phi()) 
    muNear_p4_raw_vec = (muon_mass,muNear_p4_raw.Pt(),muNear_p4_raw.Eta(),muNear_p4_raw.Phi())
    muFar_p4_raw_vec = (muon_mass,muFar_p4_raw.Pt(),muFar_p4_raw.Eta(),muFar_p4_raw.Phi())
    dmass_over_dcorr_2particles = dM_dcorr([muNear_p4_raw_vec,muFar_p4_raw_vec],muNear_RocCorSF,muFar_RocCorSF,0.,0.,2)
@@ -749,18 +750,21 @@ if __name__ == '__main__':
  gROOT.SetBatch(kTRUE)
 
  parser =  argparse.ArgumentParser(description='Zmmg')
- parser.add_argument('--era', dest='era', required=False,  type=str)
- parser.add_argument('--data', dest='data', action='store_true')
- parser.add_argument('--mc',   dest='mc',   action='store_true')
+ parser.add_argument('--era',      dest='era',      required=False,  type=str)
+ parser.add_argument('--data',     dest='data',     action='store_true')
+ parser.add_argument('--mc',       dest='mc',       action='store_true')
+ parser.add_argument('--phoScale', dest='phoScale', required=False,  type=float)
  parser.set_defaults(data  = False)
  parser.set_defaults(mc    = False)
+ parser.set_defaults(scale = 1.)
 
  args = parser.parse_args()
 
- era = args.era
- data = args.data
- mc  = args.mc
-
+ era   = args.era
+ data  = args.data
+ mc    = args.mc
+ phoScale = args.phoScale
+ 
  treeName = ""
  if mc:
    if era=="2016_preVFP": treeName = "/eos/user/b/bmarzocc/Zmmg_ForFNUF/DY2016_ZpT_preVFP_all.root/ZmmgTree" 
@@ -781,12 +785,14 @@ if __name__ == '__main__':
  tree = TChain()
  tree.Add(treeName) 
  
+ scale_str = str(phoScale)
+ scale_str = scale_str.replace('.','p')
  outName = treeName
- outName = outName.replace('.root/ZmmgTree','_withFNUF_withPNCorr.root')
+ outName = outName.replace('.root/ZmmgTree','_withFNUF_withPNCorr_fix_v4_phoScale_'+scale_str+'.root')
  outFile = TFile(outName,'RECREATE')
  outTree = TChain()
  outTree.AddFile(treeName)
- addBranches(outTree,mc)
+ addBranches(outTree,mc,phoScale)
  outFile.Write()
  outFile.Close()
  
